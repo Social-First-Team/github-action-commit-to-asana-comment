@@ -2,4 +2,4 @@ name: 'Commit Description to Comment'
 description: 'Inserts a commit description and a link to an asana (sub)task'
 runs:
   using: 'node16'
-  main: 'index.js'
+  main: 'dist/index.js'

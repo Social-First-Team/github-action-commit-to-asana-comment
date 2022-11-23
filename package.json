@@ -24,8 +24,5 @@
   "dependencies": {
     "@actions/core": "^1.10.0",
     "asana": "^1.0.0"
-  },
-  "devDependencies": {
-    "@vercel/ncc": "^0.34.0"
   }
 }
