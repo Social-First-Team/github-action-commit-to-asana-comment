@@ -15,4 +15,6 @@ jobs:
       - name: 'Pushing the comments'
         uses: ./
         id: 'CommentPush'
+        with:
+          ASANA_PAT: ${{ secrets.ASANA_PAT }}
 

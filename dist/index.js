@@ -67535,7 +67535,7 @@ async function run() {
         console.log(process.env.ASANA_PAT)
         const client = asana.Client.create().useAccessToken(process.env.ASANA_PAT);
         const me = await client.users.me();
-        console.log(me);
+        console.log(payload);
     } catch (error) {
         core.setFailed(error.message);
     }
