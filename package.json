@@ -1,0 +1,30 @@
+{
+  "name": "github-action-commit-to-asana-comment",
+  "version": "0.1.0",
+  "description": "a github action to bring commit descriptions to asana (sub)tasks",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Social-First-Team/github-action-commit-to-asana-comment.git"
+  },
+  "keywords": [
+    "asana",
+    "github",
+    "action"
+  ],
+  "author": "Marco Sandrini",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Social-First-Team/github-action-commit-to-asana-comment/issues"
+  },
+  "homepage": "https://github.com/Social-First-Team/github-action-commit-to-asana-comment#readme",
+  "dependencies": {
+    "@actions/core": "^1.10.0"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.34.0"
+  }
+}
