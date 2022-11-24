@@ -67539,7 +67539,7 @@ function getTaskIdsFromCommitMessage(message) {
 async function addCommentToTask(taskId, htmlComment) {
     try {
         console.log("Adding comment to task " + taskId);
-        const result = await client.tasks.addComment(taskId, {html_text: htmlComment});
+        const result = await client.tasks.addComment(taskId, {text: htmlComment});
     } catch (error) {
         console.error(error.message);
         console.error(error);
@@ -67557,11 +67557,25 @@ function formatCommentAsHtml(commit) {
 </body>`
 }
 
+function formatCommentAsText(commit) {
+    const breakIndex = commit.message.indexOf("\n\n");
+    const summary = commit.message.substring(0, breakIndex);
+    const message = commit.message.substring(breakIndex + 2);
+    return `${commit.author.name} has just pushed a new commit
+    
+Summary: ${summary}
+
+Message: ${message}
+
+Link: ${commit.url}
+`
+}
+
 async function processCommit(commit) {
     const taskIds = getTaskIdsFromCommitMessage(commit.message);
     console.log(`Detected ${taskIds.length} Asana Task Ids`);
     if (taskIds.length > 0) {
-        const htmlComment = formatCommentAsHtml(commit);
+        const htmlComment = formatCommentAsText(commit);
         console.log(htmlComment);
         for (let i = 0; i < taskIds.length; i++) {
             await addCommentToTask(taskIds[i], htmlComment);

@@ -10,10 +10,10 @@ function getTaskIdsFromCommitMessage(message) {
     return Array.from(matches).map(match => match[2]);
 }
 
-async function addCommentToTask(taskId, htmlComment) {
+async function addCommentToTask(taskId, comment) {
     try {
         console.log("Adding comment to task " + taskId);
-        const result = await client.tasks.addComment(taskId, {html_text: htmlComment});
+        await client.tasks.addComment(taskId, {text: comment});
     } catch (error) {
         console.error(error.message);
         console.error(error);
@@ -31,24 +31,47 @@ function formatCommentAsHtml(commit) {
 </body>`
 }
 
-async function processCommit(commit) {
+function formatCommentAsText(pushInfo, commit) {
+    const breakIndex = commit.message.indexOf("\n\n");
+    const summary = commit.message.substring(0, breakIndex);
+    const message = commit.message.substring(breakIndex + 2);
+    return `${commit.author.name} has just pushed a new commit to branch ${pushInfo.branchName} of repository ${pushInfo.repoName}
+    
+Summary: ${summary}
+
+Message: ${message}
+
+Link: ${commit.url}
+`
+}
+
+async function processCommit(pushInfo, commit) {
     const taskIds = getTaskIdsFromCommitMessage(commit.message);
     console.log(`Detected ${taskIds.length} Asana Task Ids`);
     if (taskIds.length > 0) {
-        const htmlComment = formatCommentAsHtml(commit);
-        console.log(htmlComment);
+        const comment = formatCommentAsText(pushInfo, commit);
         for (let i = 0; i < taskIds.length; i++) {
-            await addCommentToTask(taskIds[i], htmlComment);
+            await addCommentToTask(taskIds[i], comment);
         }
     }
+}
+
+function extractPushInfo(payload) {
+    const branchName = process.env.GITHUB_REF.split("/")
+        .slice(2)
+        .join("/")
+        .replace(/\//g, "-");
+    const repoName = payload.repository.name;
+    return {branchName, repoName};
 }
 
 async function run() {
     try {
         const payload = require(process.env.GITHUB_EVENT_PATH);
+        const pushInfo = extractPushInfo(payload);
         console.log(`Detected ${payload.commits.length} commit(s)`);
         for (let i = 0; i < payload.commits.length; i++) {
-            await processCommit(payload.commits[i]);
+            await processCommit(pushInfo, payload.commits[i]);
         }
     } catch (error) {
         core.setFailed(error.message);
