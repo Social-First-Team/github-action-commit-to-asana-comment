@@ -9,7 +9,7 @@ jobs:
   comments_to_asana:
     runs-on: "ubuntu-latest"
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: 'Echoing the job'
         run: echo "Pushing comments to Asana"
       - name: 'Pushing the comments'

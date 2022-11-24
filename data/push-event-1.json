@@ -4,11 +4,19 @@
   "before": "fa7f49b32b380fb62174c16f1a2aa100234eb272",
   "commits": [
     {
-      "author": null,
-      "committer": null,
+      "author": {
+        "email": "marco.sandrini@socialfirstgames.com",
+        "name": "Marco Sandrini",
+        "username": "marcosocialfirst"
+      },
+      "committer": {
+        "email": "marco.sandrini@socialfirstgames.com",
+        "name": "Marco Sandrini",
+        "username": "marcosocialfirst"
+      },
       "distinct": true,
       "id": "d9f65c3590903f19de9142dc86908558be50c1b5",
-      "message": "First Revision, ",
+      "message": "First Revision\n\nThis is the task it should post to https://app.asana.com/0/1203429533274045/1203429533274048 \n and this https://app.asana.com/0/1203429533274045/1203430263132808\n and this https://app.asana.com/0/1203429533274045/1203430263132810",
       "timestamp": "2022-11-23T16:21:45+02:00",
       "tree_id": "74f40660f5f988df9288c606cd4fd05b6e44b485",
       "url": "https://github.com/Social-First-Team/github-action-commit-to-asana-comment/commit/d9f65c3590903f19de9142dc86908558be50c1b5"
